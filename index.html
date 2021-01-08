@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue</title>
+    <style>
+      body {
+        margin: 5%;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+          'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img src="vuejs-logo.svg" width="80px" />
+      <h1>What is Vue.js</h1>
+      <p>Progresive javascript framework</p>
+    </header>
+    <div id="app"></div>
+    <footer id="footer">
+      <p>coppyright 2021</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      let member = {
+        name: 'doremi',
+        pesan: 'helo',
+      }
+      let vm = new Vue({
+        el: '#app',
+        data: member,
+      })
+    </script>
+  </body>
+</html>
