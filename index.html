@@ -16,7 +16,7 @@
     <div id="app">
       <header>
         <img src="vuejs-logo.svg" width="80px" />
-        <h1>What is Vue.js</h1>
+        <h1>{{getname()}}</h1>
         <p>Progresive JavaScript framework</p>
       </header>
       <footer id="footer">
@@ -29,10 +29,19 @@
       let member = {
         name: 'doremi',
         pesan: 'helo',
+        isactive: 'true',
       }
       let vm = new Vue({
         el: '#app',
         data: member,
+        methods: {
+          getname: function () {
+            return 'Hello you, ' + this.name
+          },
+          ubahNama: function (namabaru) {
+            this.name = namabaru
+          },
+        },
       })
     </script>
   </body>
