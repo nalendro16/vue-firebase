@@ -16,8 +16,8 @@
     <div id="app">
       <header>
         <img src="vuejs-logo.svg" width="80px" />
-        <h1>{{ bilangan }}</h1>
-        <p>Bilangan ini bilangan {{ rumus }}</p>
+        <h1 v-html="link"></h1>
+        <!-- <p>Bilangan ini bilangan {{ rumus }}</p> -->
         <p>Progresive JavaScript framework</p>
       </header>
       <footer id="footer">
@@ -30,12 +30,13 @@
       let vm = new Vue({
         el: '#app',
         data: {
-          name: 'doremi',
+          name: 'Doremi fajkatt',
           pesan: 'helo',
           qty: 1,
           namaDepan: 'Agung',
           namaBelakang: ' wicaksono',
           bilangan: 4,
+          link: '<input type="text" placeholder="Isi pajkattmu" />',
         },
         methods: {
           getname: function () {
