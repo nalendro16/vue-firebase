@@ -19,7 +19,7 @@
         <h1 v-text="bilangan"></h1>
         <p>bilangan ini adalah {{ rumus }}</p>
         <p>
-          <button v-on:click="bilangan++">Ditekan</button>
+          <button @click="hClick">Ditekan</button>
         </p>
         <h1 v-html="name.toUpperCase()"></h1>
         <img v-bind:src="gambar" width="500" />
@@ -51,6 +51,10 @@
           ubahNama: function (namabaru) {
             this.name = namabaru
             return this.getname()
+          },
+          hClick: function () {
+            this.bilangan++
+            this.gambar = 'image/samsung.jpg'
           },
         },
         computed: {
