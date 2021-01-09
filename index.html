@@ -15,9 +15,14 @@
   <body>
     <div id="app">
       <header>
-        <img src="vuejs-logo.svg" width="80px" />
-        <h1 v-html="link"></h1>
-        <!-- <p>Bilangan ini bilangan {{ rumus }}</p> -->
+        <img src="image/vuejs-logo.svg" width="80px" />
+        <h1 v-text="bilangan"></h1>
+        <p>bilangan ini adalah {{ rumus }}</p>
+        <p>
+          <button v-on:click="bilangan++">Ditekan</button>
+        </p>
+        <h1 v-html="name.toUpperCase()"></h1>
+        <img v-bind:src="gambar" width="500" />
         <p>Progresive JavaScript framework</p>
       </header>
       <footer id="footer">
@@ -37,6 +42,7 @@
           namaBelakang: ' wicaksono',
           bilangan: 4,
           link: '<input type="text" placeholder="Isi pajkattmu" />',
+          gambar: 'image/florian.jpg',
         },
         methods: {
           getname: function () {
