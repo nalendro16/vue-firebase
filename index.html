@@ -10,6 +10,12 @@
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
           'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
       }
+      .active {
+        background: aqua;
+        border: 1px solid rgb(1, 122, 122);
+        border-radius: 10px;
+        padding: 5px;
+      }
     </style>
   </head>
   <body>
@@ -22,8 +28,24 @@
           <button @click="hClick">Ditekan</button>
         </p>
         <h1 v-html="name.toUpperCase()"></h1>
-        <img v-bind:src="gambar" width="500" />
+        <img v-bind:src="gambar" width="300" />
         <p>Progresive JavaScript framework</p>
+
+        <button v-bind:class="{active:menu === 'home'}" @click="menu = 'home'">
+          HOME
+        </button>
+        <button
+          v-bind:class="{active:menu === 'about'}"
+          @click="menu = 'about'"
+        >
+          ABOUT
+        </button>
+        <button
+          v-bind:class="{active:menu === 'block'}"
+          @click="menu = 'block'"
+        >
+          BLOG
+        </button>
       </header>
       <footer id="footer">
         <p>coppyright 2021</p>
@@ -43,6 +65,7 @@
           bilangan: 4,
           link: '<input type="text" placeholder="Isi pajkattmu" />',
           gambar: 'image/florian.jpg',
+          menu: 'home',
         },
         methods: {
           getname: function () {
