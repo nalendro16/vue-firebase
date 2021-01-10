@@ -22,7 +22,8 @@
     <div id="app">
       <header>
         <img src="image/vuejs-logo.svg" width="80px" />
-        <h1 v-text="bilangan"></h1>
+        <h1 v-text="name"></h1>
+        <input type="text" v-model="name" />
         <p>bilangan ini adalah {{ rumus }}</p>
         <p>
           <button @click="hClick">Ditekan</button>
@@ -31,22 +32,11 @@
         <img v-bind:src="gambar" width="300" />
         <p>Progresive JavaScript framework</p>
 
-        <button v-bind:class="{active:menu === 'home'}" @click="menu = 'home'">
-          HOME
-        </button>
-        <button
-          v-bind:class="{active:menu === 'about'}"
-          @click="menu = 'about'"
-        >
-          ABOUT
-        </button>
-        <button
-          v-bind:class="{active:menu === 'block'}"
-          @click="menu = 'block'"
-        >
-          BLOG
-        </button>
+        <button v-bind:class="homeComp" @click="menu = 'home'">HOME</button>
+        <button v-bind:class="aboutComp" @click="menu = 'about'">ABOUT</button>
+        <button v-bind:class="blogComp" @click="menu = 'blog'">BLOG</button>
       </header>
+
       <footer id="footer">
         <p>coppyright 2021</p>
       </footer>
@@ -89,6 +79,15 @@
           },
           rumus: function () {
             return this.bilangan % 2 === 0 ? 'Genap' : 'Ganjil'
+          },
+          homeComp: function () {
+            return { active: this.menu === 'home' }
+          },
+          aboutComp: function () {
+            return { active: this.menu === 'about' }
+          },
+          blogComp: function () {
+            return { active: this.menu === 'blog' }
           },
         },
       })
