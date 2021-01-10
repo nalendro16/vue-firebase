@@ -25,11 +25,11 @@
         <h1 v-text="name"></h1>
         <p><input type="text" v-model="name" /></p>
         <h1 v-text="bilangan"></h1>
-        <ul>
-          <li v-for="(kls, index) of kelas">
-            <p>{{ index+1 }} - {{ kls }}</p>
-          </li>
+        <h3>Daftar {{kelas.length}} kelas</h3>
+        <ul v-if="kelas.length >= 1">
+          <li v-for="(kls, index) of kelas">{{ index+1 }} - {{ kls }}</li>
         </ul>
+        <li v-else>kelas masih {{ kelas.length }}</li>
         <h3>prulangan (1-5)</h3>
         <ul>
           <li v-for="x in 5">{{ x }}</li>
@@ -83,7 +83,7 @@
           link: '<input type="text" placeholder="Isi pajkattmu" />',
           gambar: 'image/florian.jpg',
           menu: 'home',
-          kelas: ['GoLang', 'PHP'],
+          kelas: [],
           number: [1, 2, 3, 4, 5],
         },
         methods: {
