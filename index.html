@@ -25,16 +25,19 @@
         <h1 v-text="name"></h1>
         <p><input type="text" v-model="name" /></p>
         <h1 v-text="bilangan"></h1>
+        <p>{{ kelas }}</p>
         <div>
           <label
-            ><input type="checkbox" value="React" v-mode="kelas" />React</label
+            ><input type="checkbox" value="React" v-model="kelas" />React</label
           >
-          <label><input type="checkbox" value="Vue" v-mode="kelas" />Vue</label>
+          <label
+            ><input type="checkbox" value="Vue" v-model="kelas" />Vue</label
+          >
           <label
             ><input
               type="checkbox"
               value="Angular"
-              v-mode="kelas"
+              v-model="kelas"
             />Angular</label
           >
         </div>
