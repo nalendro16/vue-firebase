@@ -25,7 +25,19 @@
         <h1 v-text="name"></h1>
         <p><input type="text" v-model="name" /></p>
         <h1 v-text="bilangan"></h1>
-        <p>{{ kelas }}</p>
+        <ul>
+          <li v-for="(kls, index) of kelas">
+            <p>{{ index+1 }} - {{ kls }}</p>
+          </li>
+        </ul>
+        <h3>prulangan (1-5)</h3>
+        <ul>
+          <li v-for="x in 5">{{ x }}</li>
+        </ul>
+        <h3>Mencari bilangan genap</h3>
+        <ul>
+          <li v-for="num in bilGenap(number)">{{ num }}</li>
+        </ul>
         <div>
           <label
             ><input type="checkbox" value="React" v-model="kelas" />React</label
@@ -71,7 +83,8 @@
           link: '<input type="text" placeholder="Isi pajkattmu" />',
           gambar: 'image/florian.jpg',
           menu: 'home',
-          kelas: [],
+          kelas: ['GoLang', 'PHP'],
+          number: [1, 2, 3, 4, 5],
         },
         methods: {
           getname: function () {
@@ -84,6 +97,11 @@
           hClick: function () {
             this.bilangan++
             this.gambar = 'image/samsung.jpg'
+          },
+          bilGenap: (data) => {
+            return data.filter((angka) => {
+              return angka % 2 == 0
+            })
           },
         },
         computed: {
