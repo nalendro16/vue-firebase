@@ -23,12 +23,24 @@
       <header>
         <img src="image/vuejs-logo.svg" width="80px" />
         <h1 v-text="name"></h1>
-        <input type="text" v-model="name" />
-        <p>bilangan ini adalah {{ rumus }}</p>
+        <p><input type="text" v-model="name" /></p>
+        <h1 v-text="bilangan"></h1>
+        <div>
+          <label
+            ><input type="checkbox" value="React" v-mode="kelas" />React</label
+          >
+          <label><input type="checkbox" value="Vue" v-mode="kelas" />Vue</label>
+          <label
+            ><input
+              type="checkbox"
+              value="Angular"
+              v-mode="kelas"
+            />Angular</label
+          >
+        </div>
         <p>
           <button @click="hClick">Ditekan</button>
         </p>
-        <h1 v-html="name.toUpperCase()"></h1>
         <img v-bind:src="gambar" width="300" />
         <p>Progresive JavaScript framework</p>
 
@@ -56,6 +68,7 @@
           link: '<input type="text" placeholder="Isi pajkattmu" />',
           gambar: 'image/florian.jpg',
           menu: 'home',
+          kelas: [],
         },
         methods: {
           getname: function () {
