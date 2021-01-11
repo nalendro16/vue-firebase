@@ -65,16 +65,16 @@
         <img v-bind:src="gambar" width="300" />
         <p>Progresive JavaScript framework</p>
 
-        <a v-bind:class="changeHome" href="#" @click="gantiMenu('home', $event)"
+        <a v-bind:class="changeHome" href="#" @click.prevent="gantiMenu('home')"
           >HOME</a
         >
         <a
           v-bind:class="changeAbout"
           href="#"
-          @click="gantiMenu('about', $event)"
+          @click.prevent="gantiMenu('about')"
           >ABOUT</a
         >
-        <a v-bind:class="changeBlog" href="#" @click="gantiMenu('blog', $event)"
+        <a v-bind:class="changeBlog" href="#" @click.prevent="gantiMenu('blog')"
           >BLOG</a
         >
       </header>
@@ -118,8 +118,7 @@
               return angka % 2 == 0
             })
           },
-          gantiMenu: function (data, event) {
-            event.preventDefault()
+          gantiMenu: function (data) {
             this.menu = data
           },
         },
