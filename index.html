@@ -26,11 +26,17 @@
         <p><input type="text" v-model="name" /></p>
         <h1 v-text="bilangan"></h1>
         <h3>Daftar {{kelas.length}} kelas</h3>
-        <ul v-if="kelas.length >= 1">
-          <li v-for="(kls, index) of kelas">{{ index+1 }} - {{ kls }}</li>
+
+        <template v-if="kelas.length >= 1">
+          <ul>
+            <li v-for="(kls,index) in kelas">{{ index+1 }} - {{ kls }}</li>
+          </ul>
+        </template>
+        <ul v-else>
+          Tidak ada kelas
         </ul>
-        <li v-else>kelas masih {{ kelas.length }}</li>
-        <h3>prulangan (1-5)</h3>
+
+        <h3>Perulangan (1-5)</h3>
         <ul>
           <li v-for="x in 5">{{ x }}</li>
         </ul>
@@ -59,9 +65,18 @@
         <img v-bind:src="gambar" width="300" />
         <p>Progresive JavaScript framework</p>
 
-        <button v-bind:class="homeComp" @click="menu = 'home'">HOME</button>
-        <button v-bind:class="aboutComp" @click="menu = 'about'">ABOUT</button>
-        <button v-bind:class="blogComp" @click="menu = 'blog'">BLOG</button>
+        <a v-bind:class="changeHome" href="#" @click="gantiMenu('home', $event)"
+          >HOME</a
+        >
+        <a
+          v-bind:class="changeAbout"
+          href="#"
+          @click="gantiMenu('about', $event)"
+          >ABOUT</a
+        >
+        <a v-bind:class="changeBlog" href="#" @click="gantiMenu('blog', $event)"
+          >BLOG</a
+        >
       </header>
 
       <footer id="footer">
@@ -74,7 +89,7 @@
       let vm = new Vue({
         el: '#app',
         data: {
-          name: 'Doremi fajkatt',
+          name: 'Buenas noches, Pajkatt',
           pesan: 'helo',
           qty: 1,
           namaDepan: 'Agung',
@@ -103,6 +118,10 @@
               return angka % 2 == 0
             })
           },
+          gantiMenu: function (data, event) {
+            event.preventDefault()
+            this.menu = data
+          },
         },
         computed: {
           totalBayar: function () {
@@ -114,13 +133,13 @@
           rumus: function () {
             return this.bilangan % 2 === 0 ? 'Genap' : 'Ganjil'
           },
-          homeComp: function () {
+          changeHome: function () {
             return { active: this.menu === 'home' }
           },
-          aboutComp: function () {
+          changeAbout: function () {
             return { active: this.menu === 'about' }
           },
-          blogComp: function () {
+          changeBlog: function () {
             return { active: this.menu === 'blog' }
           },
         },
