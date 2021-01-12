@@ -30,6 +30,7 @@
             type="text"
             placeholder="Nama kelas"
             v-on:keyup.enter="submit"
+            v-model="kelasbaru"
           />
         </p>
 
@@ -108,6 +109,7 @@
           gambar: 'image/florian.jpg',
           menu: 'home',
           kelas: ['PHP', 'Golang', 'Ruby'],
+          kelasbaru: '',
           number: [1, 2, 3, 4, 5],
         },
         methods: {
@@ -130,10 +132,9 @@
           gantiMenu: function (data) {
             this.menu = data
           },
-          submit: function (event) {
-            let text = event.target.value
-            this.kelas.unshift(text)
-            event.target.value = ''
+          submit: function () {
+            this.kelas.unshift(this.kelasbaru)
+            this.kelasbaru = ''
           },
         },
         computed: {
