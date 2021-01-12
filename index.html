@@ -23,7 +23,16 @@
       <header>
         <img src="image/vuejs-logo.svg" width="80px" />
         <h1 v-text="name"></h1>
-        <p><input type="text" v-model="name" /></p>
+
+        <h3>FORM SUBMIT</h3>
+        <p>
+          <input
+            type="text"
+            placeholder="Nama kelas"
+            v-on:keyup.enter="submit"
+          />
+        </p>
+
         <h1 v-text="bilangan"></h1>
         <h3>Daftar {{kelas.length}} kelas</h3>
 
@@ -98,7 +107,7 @@
           link: '<input type="text" placeholder="Isi pajkattmu" />',
           gambar: 'image/florian.jpg',
           menu: 'home',
-          kelas: [],
+          kelas: ['PHP', 'Golang', 'Ruby'],
           number: [1, 2, 3, 4, 5],
         },
         methods: {
@@ -120,6 +129,11 @@
           },
           gantiMenu: function (data) {
             this.menu = data
+          },
+          submit: function (event) {
+            let text = event.target.value
+            this.kelas.unshift(text)
+            event.target.value = ''
           },
         },
         computed: {
