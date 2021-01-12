@@ -23,20 +23,18 @@
       <header>
         <img src="image/vuejs-logo.svg" width="80px" />
         <h1 v-text="name"></h1>
+        <p>Progresive JavaScript framework</p>
+      </header>
 
-        <h3>FORM SUBMIT</h3>
-        <p>
-          <input
-            type="text"
-            placeholder="Nama kelas"
-            v-on:keyup.enter="submit"
-            v-model="kelasbaru"
-          />
-        </p>
-
-        <h1 v-text="bilangan"></h1>
-        <h3>Daftar {{kelas.length}} kelas</h3>
-
+      <main>
+        <h3>TAMBAH KELAS</h3>
+        <input
+          placeholder="Tambah kelas"
+          @keyup.enter="submit"
+          v-model="kelasbaru"
+        />
+        <hr />
+        <h3>Daftar kelas {{ kelas.length }}</h3>
         <template v-if="kelas.length >= 1">
           <ul>
             <li v-for="(kls,index) in kelas">{{ index+1 }} - {{ kls }}</li>
@@ -45,23 +43,7 @@
         <ul v-else>
           Tidak ada kelas
         </ul>
-        <img v-bind:src="gambar" width="300" />
-        <p>Progresive JavaScript framework</p>
-
-        <a v-bind:class="changeHome" href="#" @click.prevent="gantiMenu('home')"
-          >HOME</a
-        >
-        <a
-          v-bind:class="changeAbout"
-          href="#"
-          @click.prevent="gantiMenu('about')"
-          >ABOUT</a
-        >
-        <a v-bind:class="changeBlog" href="#" @click.prevent="gantiMenu('blog')"
-          >BLOG</a
-        >
-      </header>
-
+      </main>
       <footer id="footer">
         <p>coppyright 2021</p>
       </footer>
@@ -72,64 +54,16 @@
       let vm = new Vue({
         el: '#app',
         data: {
-          name: 'Buenas noches, Pajkatt',
-          pesan: 'helo',
-          qty: 1,
-          namaDepan: 'Agung',
-          namaBelakang: ' wicaksono',
-          bilangan: 4,
-          link: '<input type="text" placeholder="Isi pajkattmu" />',
-          gambar: 'image/florian.jpg',
-          menu: 'home',
           kelas: ['PHP', 'Golang', 'Ruby'],
           kelasbaru: '',
-          number: [1, 2, 3, 4, 5],
         },
         methods: {
-          getname: function () {
-            return 'Hello you, ' + this.name
-          },
-          ubahNama: function (namabaru) {
-            this.name = namabaru
-            return this.getname()
-          },
-          hClick: function () {
-            this.bilangan++
-            this.gambar = 'image/samsung.jpg'
-          },
-          bilGenap: (data) => {
-            return data.filter((angka) => {
-              return angka % 2 == 0
-            })
-          },
-          gantiMenu: function (data) {
-            this.menu = data
-          },
           submit: function () {
             this.kelas.unshift(this.kelasbaru)
             this.kelasbaru = ''
           },
         },
-        computed: {
-          totalBayar: function () {
-            return this.qty * 10000
-          },
-          namaLengkap: function () {
-            return this.namaDepan + this.namaBelakang
-          },
-          rumus: function () {
-            return this.bilangan % 2 === 0 ? 'Genap' : 'Ganjil'
-          },
-          changeHome: function () {
-            return { active: this.menu === 'home' }
-          },
-          changeAbout: function () {
-            return { active: this.menu === 'about' }
-          },
-          changeBlog: function () {
-            return { active: this.menu === 'blog' }
-          },
-        },
+        computed: {},
       })
     </script>
   </body>
