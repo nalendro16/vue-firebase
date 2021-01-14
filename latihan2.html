@@ -20,12 +20,7 @@
   </head>
   <body>
     <div id="app">
-      <header>
-        <img src="image/vuejs-logo.svg" width="80px" />
-        <h1 v-text="name"></h1>
-        <p>Progresive JavaScript framework</p>
-      </header>
-
+      <header-component></header-component>
       <main>
         <h3>TAMBAH KELAS</h3>
         <input
@@ -44,13 +39,25 @@
           Tidak ada kelas
         </ul>
       </main>
-      <footer id="footer">
-        <p>coppyright 2021</p>
-      </footer>
+      <footer-component></footer-component>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
     <script>
+      Vue.component('header-component', {
+        template: ` <header>
+        <img src="image/vuejs-logo.svg" width="80px" />
+        <h1 v-text="name"></h1>
+        <p>Progresive JavaScript framework</p>
+      </header>`,
+      }),
+        Vue.component('footer-component', {
+          template: `
+      <footer id="footer">
+        <p>coppyright 2021</p>
+      </footer>`,
+        })
+
       let vm = new Vue({
         el: '#app',
         data: {
