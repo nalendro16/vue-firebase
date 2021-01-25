@@ -46,10 +46,15 @@
     <script>
       Vue.component('header-component', {
         template: ` <header>
-        <img src="image/vuejs-logo.svg" width="80px" />
-        <h1 v-text="name"></h1>
-        <p>Progresive JavaScript framework</p>
-      </header>`,
+              <img src="image/vuejs-logo.svg" width="80px" />
+              <h1 v-text="name"></h1>
+              <p v-text='pesan' >Progresive JavaScript framework</p>
+            </header>`,
+        data: function () {
+          return {
+            pesan: 'Hello from data',
+          }
+        },
       }),
         Vue.component('footer-component', {
           template: `
