@@ -20,9 +20,12 @@
   </head>
   <body>
     <div id="app">
-      <header-component></header-component>
+      <header-component
+        nama="VueJS"
+        gambar="image/samsung.jpg"
+      ></header-component>
       <main>
-        <kelase></kelase>
+        <kelase />
       </main>
       <footer-component></footer-component>
     </div>
@@ -30,10 +33,12 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
     <script>
       Vue.component('header-component', {
+        props: ['nama', 'gambar'],
         template: ` <header>
               <img src="image/vuejs-logo.svg" width="80px" />
+              <img :src='gambar' width='100px'>
               <h1 v-text="name"></h1>
-              <p v-text='pesan' >Progresive JavaScript framework</p>
+              <p>{{ 'Framework ' +nama }}</p>
             </header>`,
         data: function () {
           return {
