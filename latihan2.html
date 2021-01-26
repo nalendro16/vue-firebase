@@ -22,22 +22,7 @@
     <div id="app">
       <header-component></header-component>
       <main>
-        <h3>TAMBAH KELAS</h3>
-        <input
-          placeholder="Tambah kelas"
-          @keyup.enter="submit"
-          v-model="kelasbaru"
-        />
-        <hr />
-        <h3>Daftar kelas {{ kelas.length }}</h3>
-        <template v-if="kelas.length >= 1">
-          <ul>
-            <li v-for="(kls,index) in kelas">{{ index+1 }} - {{ kls }}</li>
-          </ul>
-        </template>
-        <ul v-else>
-          Tidak ada kelas
-        </ul>
+        <kelase></kelase>
       </main>
       <footer-component></footer-component>
     </div>
@@ -58,23 +43,46 @@
       }),
         Vue.component('footer-component', {
           template: `
-      <footer id="footer">
-        <p>coppyright 2021</p>
-      </footer>`,
+          <footer id="footer">
+            <p>coppyright 2021</p>
+          </footer>`,
+        }),
+        Vue.component('kelase', {
+          template: `<div>
+        <h3>TAMBAH KELAS</h3>
+        <input
+          placeholder="Tambah kelas"
+          @keyup.enter="submit"
+          v-model="kelasbaru"
+        />
+        <hr />
+        <h3>Daftar kelas {{ kelas.length }}</h3>
+        <template v-if="kelas.length >= 1">
+          <ul>
+            <li v-for="(kls,index) in kelas">{{ index+1 }} - {{ kls }}</li>
+          </ul>
+        </template>
+        <ul v-else>
+          Tidak ada kelas
+        </ul></div>`,
+          data: function () {
+            return {
+              kelas: ['PHP', 'Golang', 'Ruby'],
+              kelasbaru: '',
+            }
+          },
+          methods: {
+            submit: function () {
+              this.kelas.unshift(this.kelasbaru)
+              this.kelasbaru = ''
+            },
+          },
         })
 
       let vm = new Vue({
         el: '#app',
-        data: {
-          kelas: ['PHP', 'Golang', 'Ruby'],
-          kelasbaru: '',
-        },
-        methods: {
-          submit: function () {
-            this.kelas.unshift(this.kelasbaru)
-            this.kelasbaru = ''
-          },
-        },
+        data: {},
+        methods: {},
         computed: {},
       })
     </script>
