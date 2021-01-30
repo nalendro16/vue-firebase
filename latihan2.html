@@ -19,13 +19,14 @@
     </style>
   </head>
   <body>
+    <!-- komponen utama -->
     <div id="app">
       <header-component
         nama="AdonisJS"
         gambar="image/samsung.jpg"
       ></header-component>
       <main>
-        <kelase />
+        <kelase :item="kelas" :klsbaru="kelasbaru" />
       </main>
       <footer-component></footer-component>
     </div>
@@ -53,28 +54,26 @@
           </footer>`,
         }),
         Vue.component('kelase', {
+          props: ['item', 'klsbaru', 'enter'],
           template: `<div>
         <h3>TAMBAH KELAS</h3>
         <input
           placeholder="Tambah kelas"
           @keyup.enter="submit"
-          v-model="kelasbaru"
+          v-model="klsbaru"
         />
         <hr />
-        <h3>Daftar kelas {{ kelas.length }}</h3>
-        <template v-if="kelas.length >= 1">
+        <h3>Daftar kelas {{ item.length }}</h3>
+        <template v-if="item.length >= 1">
           <ul>
-            <li v-for="(kls,index) in kelas">{{ index+1 }} - {{ kls }}</li>
+            <li v-for="(kls,index) in item">{{ index+1 }} - {{ kls }}</li>
           </ul>
         </template>
         <ul v-else>
           Tidak ada kelas
         </ul></div>`,
           data: function () {
-            return {
-              kelas: ['PHP', 'Golang', 'Ruby'],
-              kelasbaru: '',
-            }
+            return {}
           },
           methods: {
             submit: function () {
@@ -86,7 +85,10 @@
 
       let vm = new Vue({
         el: '#app',
-        data: {},
+        data: {
+          kelas: ['PHP', 'Golang', 'Ruby'],
+          kelasbaru: '',
+        },
         methods: {},
         computed: {},
       })
