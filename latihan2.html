@@ -54,7 +54,7 @@
           </footer>`,
         }),
         Vue.component('kelase', {
-          props: ['item', 'klsbaru', 'enter'],
+          props: ['item', 'klsbaru'],
           template: `<div>
         <h3>TAMBAH KELAS</h3>
         <input
@@ -77,8 +77,8 @@
           },
           methods: {
             submit: function () {
-              this.kelas.unshift(this.kelasbaru)
-              this.kelasbaru = ''
+              this.item.unshift(this.klsbaru)
+              this.klsbaru = ''
             },
           },
         })
