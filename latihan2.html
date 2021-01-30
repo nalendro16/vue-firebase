@@ -26,7 +26,11 @@
         gambar="image/samsung.jpg"
       ></header-component>
       <main>
-        <kelase :item="kelas" :klsbaru="kelasbaru"></kelase>
+        <kelase
+          :item="kelas"
+          :klsbaru="kelasbaru"
+          v-on:hapuskelas="hapuskelas"
+        ></kelase>
         <home></home>
       </main>
       <footer-component></footer-component>
@@ -67,8 +71,11 @@
         <h3>Daftar kelas {{ item.length }}</h3>
         <template v-if="item.length >= 1">
           <ul>
-            <li v-for="(kls,index) in item">{{ index+1 }} - {{ kls }}</li>
-          </ul>
+            <li v-for="(kls,index) in item">{{ index+1 }} - {{ kls }}
+              <a href="" v-on:click.prevent="$emit('hapuskelas')">Hapus</a>
+            </li>
+            
+            </ul>
         </template>
         <ul v-else>
           Tidak ada kelas
@@ -95,7 +102,11 @@
           kelas: ['PHP', 'Golang', 'Ruby'],
           kelasbaru: '',
         },
-        methods: {},
+        methods: {
+          hapuskelas: function () {
+            console.log('tes')
+          },
+        },
         computed: {},
       })
     </script>
