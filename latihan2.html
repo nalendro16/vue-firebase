@@ -26,7 +26,8 @@
         gambar="image/samsung.jpg"
       ></header-component>
       <main>
-        <kelase :item="kelas" :klsbaru="kelasbaru" />
+        <kelase :item="kelas" :klsbaru="kelasbaru"></kelase>
+        <home></home>
       </main>
       <footer-component></footer-component>
     </div>
@@ -82,9 +83,14 @@
             },
           },
         })
-
+      const Home = {
+        template: `<div>Home</div>`,
+      }
       let vm = new Vue({
         el: '#app',
+        components: {
+          home: Home,
+        },
         data: {
           kelas: ['PHP', 'Golang', 'Ruby'],
           kelasbaru: '',
