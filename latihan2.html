@@ -74,8 +74,7 @@
             <li v-for="(kls,index) in item">{{ index+1 }} - {{ kls }}
               <a href="" v-on:click.prevent="$emit('hapuskelas')">Hapus</a>
             </li>
-            
-            </ul>
+          </ul>
         </template>
         <ul v-else>
           Tidak ada kelas
