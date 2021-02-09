@@ -33,7 +33,9 @@
         ></kelase>
         <home></home>
       </main>
-      <footer-component></footer-component>
+      <footer-component>
+        <p>Coppyright 2021</p>
+      </footer-component>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
@@ -55,8 +57,8 @@
         Vue.component('footer-component', {
           template: `
           <footer id="footer">
-            <p>coppyright 2021</p>
-          </footer>`,
+            <slot></slot>
+          </footer>`, //untuk merender p didalam component footer,
         }),
         Vue.component('kelase', {
           props: ['item', 'klsbaru'],
