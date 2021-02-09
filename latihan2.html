@@ -22,14 +22,14 @@
     <!-- komponen utama -->
     <div id="app">
       <header-component
-        nama="AdonisJS"
+        nama="VanillaJS"
         gambar="image/samsung.jpg"
       ></header-component>
       <main>
         <kelase
           :item="kelas"
           :klsbaru="kelasbaru"
-          v-on:hapuskelas="hapuskls"
+          v-on:hapuskelas="hapuskls ($event)"
         ></kelase>
         <home></home>
       </main>
@@ -72,7 +72,7 @@
         <template v-if="item.length >= 1">
           <ul>
             <li v-for="(kls,index) in item">{{ index+1 }} - {{ kls }}
-              <a href="" v-on:click.prevent="$emit('hapuskelas')">Hapus</a>
+              <a href="" v-on:click.prevent="$emit('hapuskelas', index)">Hapus</a>
             </li>
           </ul>
         </template>
@@ -102,8 +102,8 @@
           kelasbaru: '',
         },
         methods: {
-          hapuskls: function () {
-            console.log('tes')
+          hapuskls: function (indx) {
+            this.kelas.splice(indx, 1)
           },
         },
         computed: {},
