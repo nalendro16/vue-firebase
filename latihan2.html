@@ -110,6 +110,10 @@
         { path: '/kelas', component: Kelas },
       ]
 
+      const router = new VueRouter({
+        routes, // short for `routes: routes`
+      })
+
       let vm = new Vue({
         el: '#app',
         components: {
