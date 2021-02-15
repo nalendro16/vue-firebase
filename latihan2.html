@@ -50,6 +50,38 @@
         template: `<div>About</div>`,
       }
 
+      const Kelas = {
+        props: ['item', 'klsbaru'],
+        template: `<div>
+        <h3>TAMBAH KELAS</h3>
+        <input
+          placeholder="Tambah kelas"
+          @keyup.enter="submit"
+          v-model="klsbaru"
+        />
+        <hr />
+        <h3>Daftar kelas {{ item.length }}</h3>
+        <template v-if="item.length >= 1">
+          <ul>
+            <li v-for="(kls,index) in item">{{ index+1 }} - {{ kls }}
+              <a href="" v-on:click.prevent="$emit('hapuskelas', index)">Hapus</a>
+            </li>
+          </ul>
+        </template>
+        <ul v-else>
+          Tidak ada kelas
+        </ul></div>`,
+        data: function () {
+          return {}
+        },
+        methods: {
+          submit: function () {
+            this.item.unshift(this.klsbaru)
+            this.klsbaru = ''
+          },
+        },
+      }
+
       Vue.component('header-component', {
         props: ['nama', 'gambar'],
         template: ` <header>
@@ -70,41 +102,12 @@
             <slot></slot>
           </footer>`, //untuk merender p didalam component footer,
         }),
-        Vue.component('kelase', {
-          props: ['item', 'klsbaru'],
-          template: `<div>
-        <h3>TAMBAH KELAS</h3>
-        <input
-          placeholder="Tambah kelas"
-          @keyup.enter="submit"
-          v-model="klsbaru"
-        />
-        <hr />
-        <h3>Daftar kelas {{ item.length }}</h3>
-        <template v-if="item.length >= 1">
-          <ul>
-            <li v-for="(kls,index) in item">{{ index+1 }} - {{ kls }}
-              <a href="" v-on:click.prevent="$emit('hapuskelas', index)">Hapus</a>
-            </li>
-          </ul>
-        </template>
-        <ul v-else>
-          Tidak ada kelas
-        </ul></div>`,
-          data: function () {
-            return {}
-          },
-          methods: {
-            submit: function () {
-              this.item.unshift(this.klsbaru)
-              this.klsbaru = ''
-            },
-          },
-        })
+        Vue.component('kelase', {})
 
       const routes = [
         { path: '/', component: Home },
         { path: '/about', component: About },
+        { path: '/kelas', component: Kelas },
       ]
 
       let vm = new Vue({
