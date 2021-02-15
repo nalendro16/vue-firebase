@@ -21,17 +21,31 @@
   <body>
     <!-- komponen utama -->
     <div id="app">
+      <nav>
+        <router-link to="/">Home</router-link>
+        <router-link to="/about">About</router-link>
+        <router-link to="/kelas">Kelas</router-link>
+      </nav>
       <header-component
         nama="VanillaJS"
         gambar="image/samsung.jpg"
       ></header-component>
       <main>
         <kelase
+          <!--
           :item="kelas"
           :klsbaru="kelasbaru"
           v-on:hapuskelas="hapuskls ($event)"
-        ></kelase>
-        <home></home>
+          --
+        >
+          ></kelase
+        >
+        <!-- <home></home> -->
+        <router-view
+          :item="kelas"
+          :klsbaru="kelasbaru"
+          v-on:hapuskelas="hapuskls ($event)"
+        ></router-view>
       </main>
       <footer-component>
         <p>Coppyright 2021</p>
@@ -99,7 +113,7 @@
         Vue.component('footer-component', {
           template: `
           <footer id="footer">
-            <slot></slot>
+            <slot></slot> 
           </footer>`, //untuk merender p didalam component footer,
         }),
         Vue.component('kelase', {})
@@ -116,6 +130,7 @@
 
       let vm = new Vue({
         el: '#app',
+        router, //menambah konfigurasi ke vue
         components: {
           home: Home,
         },
