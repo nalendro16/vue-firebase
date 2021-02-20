@@ -21,28 +21,19 @@
   <body>
     <!-- komponen utama -->
     <div id="app">
+      <header-component
+        nama="VanillaJS"
+        gambar="image/samsung.jpg"
+      ></header-component>
       <nav>
         <router-link to="/">Home</router-link>
         <router-link to="/about">About</router-link>
         <router-link to="/kelas">Kelas</router-link>
       </nav>
-      <header-component
-        nama="VanillaJS"
-        gambar="image/samsung.jpg"
-      ></header-component>
       <main>
-        <kelase
-          <!--
-          :item="kelas"
-          :klsbaru="kelasbaru"
-          v-on:hapuskelas="hapuskls ($event)"
-          --
-        >
-          ></kelase
-        >
-        <!-- <home></home> -->
+        <!-- home,about,kelas(main) dignati router-view //kelas dkk disini merender scr manual  -->
         <router-view
-          :item="kelas"
+          :items="kelas"
           :klsbaru="kelasbaru"
           v-on:hapuskelas="hapuskls ($event)"
         ></router-view>
@@ -55,17 +46,26 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
     <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
     <script>
-      // konfigurasi komponen
+      // konfigurasi komponen router
       const Home = {
-        template: `<div>Home</div>`,
+        template: `<div>
+            <h2>Home</h2>
+            <p>Yolo this is Home</p>
+            </div>`,
       }
-
       const About = {
-        template: `<div>About</div>`,
+        template: `<div>
+            <h2>About</h2>
+            <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos culpa
+            explicabo quis. Amet dolores nam rem dolore ea laudantium dicta,
+            cupiditate consequuntur facere.
+            </p>
+            </div>`,
       }
-
+      // local registration komponen
       const Kelas = {
-        props: ['item', 'klsbaru'],
+        props: ['items', 'klsbaru'],
         template: `<div>
         <h3>TAMBAH KELAS</h3>
         <input
@@ -74,11 +74,11 @@
           v-model="klsbaru"
         />
         <hr />
-        <h3>Daftar kelas {{ item.length }}</h3>
-        <template v-if="item.length >= 1">
+        <h3>Daftar kelas {{ items.length }}</h3>
+        <template v-if="items.length >= 1">
           <ul>
-            <li v-for="(kls,index) in item">{{ index+1 }} - {{ kls }}
-              <a href="" v-on:click.prevent="$emit('hapuskelas', index)">Hapus</a>
+            <li v-for="(item,index) in items">{{ index+1 }} - {{ item.judul }}
+              <a href="" v-on:click.prevent="$emit('hapuskelas', item.id)">Hapus</a>
             </li>
           </ul>
         </template>
@@ -88,14 +88,8 @@
         data: function () {
           return {}
         },
-        methods: {
-          submit: function () {
-            this.item.unshift(this.klsbaru)
-            this.klsbaru = ''
-          },
-        },
       }
-
+      // konfigurasi komponen header dan footer~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       Vue.component('header-component', {
         props: ['nama', 'gambar'],
         template: ` <header>
@@ -113,11 +107,11 @@
         Vue.component('footer-component', {
           template: `
           <footer id="footer">
-            <slot></slot> 
+            <slot></slot>
           </footer>`, //untuk merender p didalam component footer,
-        }),
-        Vue.component('kelase', {})
+        })
 
+      // mengaktifkan vue router~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       const routes = [
         { path: '/', component: Home },
         { path: '/about', component: About },
@@ -132,16 +126,37 @@
       let vm = new Vue({
         el: '#app',
         router, //menambah konfigurasi ke vue
-        components: {
-          home: Home,
-        },
         data: {
-          kelas: ['PHP', 'Golang', 'Ruby'],
+          kelas: [
+            {
+              id: 1,
+              judul: 'PHP',
+              deskripsi: 'familiar backend language',
+              gambar: 'php.jpg',
+            },
+            {
+              id: 2,
+              judul: 'Golang',
+              deskripsi: 'language from google',
+              gambar: 'go.jpg',
+            },
+            {
+              id: 3,
+              judul: 'Java',
+              deskripsi: 'language from google',
+              gambar: 'java.png',
+            },
+          ],
           kelasbaru: '',
         },
         methods: {
-          hapuskls: function (indx) {
-            this.kelas.splice(indx, 1)
+          hapuskls: function (id) {
+            this.kelas = this.kelas.filter((item) => item.id != id)
+            console.log(id)
+          },
+          submit: function (event) {
+            const text = event.target.value
+            this.kelas.unshift(text)
           },
         },
         computed: {},
