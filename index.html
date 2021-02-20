@@ -21,10 +21,7 @@
   <body>
     <!-- komponen utama -->
     <div id="app">
-      <header-component
-        nama="VanillaJS"
-        gambar="image/samsung.jpg"
-      ></header-component>
+      <header-component></header-component>
       <nav>
         <router-link to="/">Home</router-link>
         <router-link to="/about">About</router-link>
@@ -76,7 +73,7 @@
                 <textarea v-model="kelas.deskripsi"></textarea>
             </div>
             <div class="input-group">
-                <img :src="previewimg">
+                <img :src="previewimg" v-if="previewimg" width="200">
                 <label>Masukan gambar: </label><br>
                 <input type="file" v-on:change="upload">
             </div>
@@ -101,6 +98,7 @@
               deskripsi: '',
               gambar: '',
             },
+            previewimg: '',
           }
         },
         methods: {
@@ -109,13 +107,18 @@
               id: uuidv4(),
               judul: this.kelas.judul,
               deskripsi: this.kelas.deskripsi,
-              gambar: null,
+              gambar: this.kelas.gambar,
             }
             this.$emit('submitkelas', data)
             this.kelas.judul = ''
             this.kelas.deskripsi = ''
+            this.kelas.gambar = null
           },
-          upload: function () {},
+          upload: function (event) {
+            const namaGambar = event.target.files[0].name
+            this.kelas.gambar = namaGambar
+            this.previewimg = URL.createObjectURL(event.target.files[0])
+          },
         },
       }
       // konfigurasi komponen header dan footer~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
