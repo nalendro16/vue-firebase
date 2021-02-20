@@ -83,9 +83,13 @@
         <h3>Daftar kelas {{ items.length }}</h3>
         <template v-if="items.length >= 1">
           <ul>
-            <li v-for="(item,index) in items">{{ index+1 }} - {{ item.judul }}
-              <a href="" v-on:click.prevent="$emit('hapuskelas', item.id)">Hapus</a>
-            </li>
+            <li v-for="(item,index) in items">
+                <img :src="'image/' + item.gambar" width="200">
+                <p>
+                {{ index+1 }} - {{ item.judul }}
+                <a href="" v-on:click.prevent="$emit('hapuskelas', item.id)">Hapus</a>
+                </p>
+              </li>
           </ul>
         </template>
         <ul v-else>
@@ -123,6 +127,14 @@
           },
         },
       }
+      const NotFound = {
+        template: `<div>
+            <h2>404 Not Found</h2>
+            <p>
+            Halaman tidak tersedia
+            </p>
+            </div>`,
+      }
       // konfigurasi komponen header dan footer~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       Vue.component('header-component', {
         props: ['nama', 'gambar'],
@@ -149,6 +161,7 @@
         { path: '/', component: Home },
         { path: '/about', component: About },
         { path: '/kelas', component: Kelas },
+        { path: '*', component: NotFound },
       ]
 
       const router = new VueRouter({
