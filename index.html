@@ -75,7 +75,7 @@
             <div class="input-group">
                 <img :src="previewimg" v-if="previewimg" width="200">
                 <label>Masukan gambar: </label><br>
-                <input type="file" v-on:change="upload">
+                <input type="file" ref="gambar" v-on:change="upload">
             </div>
             <button type="submit">Submit</button>
         </form>
@@ -112,7 +112,9 @@
             this.$emit('submitkelas', data)
             this.kelas.judul = ''
             this.kelas.deskripsi = ''
-            this.kelas.gambar = null
+            this.kelas.gambar = ''
+            this.previewimg = ''
+            this.$refs.gambar.value = ''
           },
           upload: function (event) {
             const namaGambar = event.target.files[0].name
