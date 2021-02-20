@@ -34,7 +34,7 @@
         <!-- home,about,kelas(main) dignati router-view //kelas dkk disini merender scr manual  -->
         <router-view
           :items="kelas"
-          :klsbaru="kelasbaru"
+          v-on:submitkelas="submitkelas"
           v-on:hapuskelas="hapuskls ($event)"
         ></router-view>
       </main>
@@ -43,8 +43,9 @@
       </footer-component>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
     <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
     <script>
       // konfigurasi komponen router
       const Home = {
@@ -68,11 +69,19 @@
         props: ['items', 'klsbaru'],
         template: `<div>
         <h3>TAMBAH KELAS</h3>
-        <input
-          placeholder="Tambah kelas"
-          @keyup.enter="submit"
-          v-model="klsbaru"
-        />
+        <form v-on:submit.prevent="submitkelas">
+            <p><input type="text" v-model="kelas.judul" placeholder="Nama kelas"></p>
+            <div class="input-group">
+                <label>Deskripsi: </label><br>
+                <textarea v-model="kelas.deskripsi"></textarea>
+            </div>
+            <div class="input-group">
+                <img :src="previewimg">
+                <label>Masukan gambar: </label><br>
+                <input type="file" v-on:change="upload">
+            </div>
+            <button type="submit">Submit</button>
+        </form>
         <hr />
         <h3>Daftar kelas {{ items.length }}</h3>
         <template v-if="items.length >= 1">
@@ -86,7 +95,27 @@
           Tidak ada kelas
         </ul></div>`,
         data: function () {
-          return {}
+          return {
+            kelas: {
+              judul: '',
+              deskripsi: '',
+              gambar: '',
+            },
+          }
+        },
+        methods: {
+          submitkelas: function () {
+            const data = {
+              id: uuidv4(),
+              judul: this.kelas.judul,
+              deskripsi: this.kelas.deskripsi,
+              gambar: null,
+            }
+            this.$emit('submitkelas', data)
+            this.kelas.judul = ''
+            this.kelas.deskripsi = ''
+          },
+          upload: function () {},
         },
       }
       // konfigurasi komponen header dan footer~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -95,7 +124,6 @@
         template: ` <header>
               <img src="image/vuejs-logo.svg" width="80px" />
               <img :src='gambar' width='100px'>
-              <h1 v-text="name"></h1>
               <p>{{ 'Framework ' +nama }}</p>
             </header>`,
         data: function () {
@@ -152,14 +180,11 @@
         methods: {
           hapuskls: function (id) {
             this.kelas = this.kelas.filter((item) => item.id != id)
-            console.log(id)
           },
-          submit: function (event) {
-            const text = event.target.value
-            this.kelas.unshift(text)
+          submitkelas: function (data) {
+            this.kelas.push(data)
           },
         },
-        computed: {},
       })
     </script>
   </body>
