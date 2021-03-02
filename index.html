@@ -79,6 +79,7 @@
             <div class="input-group">
                 <label>Deskripsi: </label><br>
                 <textarea v-model="kelas.deskripsi"></textarea>
+                <div class="error" v-if="error.deskripsi"><small>{{error.deskripsi}}</small></div>
             </div>
             <div class="input-group">
                 <img :src="previewimg" v-if="previewimg" width="200">
@@ -119,21 +120,29 @@
         },
         methods: {
           submitkelas: function () {
+            this.error.judul = ''
+            this.error.deskripsi = ''
+
             if (this.kelas.judul == '') {
               this.error.judul = 'Judul is Required'
             }
-            const data = {
-              id: uuidv4(),
-              judul: this.kelas.judul,
-              deskripsi: this.kelas.deskripsi,
-              gambar: this.kelas.gambar,
+            if (this.kelas.deskripsi == '') {
+              this.error.deskripsi = 'Deskripsi is Required'
             }
-            this.$emit('submitkelas', data)
-            this.kelas.judul = ''
-            this.kelas.deskripsi = ''
-            this.kelas.gambar = ''
-            this.previewimg = ''
-            this.$refs.gambar.value = ''
+            if (this.kelas.judul && this.kelas.deskripsi) {
+              const data = {
+                id: uuidv4(),
+                judul: this.kelas.judul,
+                deskripsi: this.kelas.deskripsi,
+                gambar: this.kelas.gambar,
+              }
+              this.$emit('submitkelas', data)
+              this.kelas.judul = ''
+              this.kelas.deskripsi = ''
+              this.kelas.gambar = ''
+              this.previewimg = ''
+              this.$refs.gambar.value = ''
+            }
           },
           upload: function (event) {
             const namaGambar = event.target.files[0].name
