@@ -49,6 +49,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
     <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
     <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
       // konfigurasi komponen router
       const Home = {
@@ -97,6 +98,7 @@
                 <p>
                 {{ index+1 }} - {{ item.judul }}
                 <a href="" v-on:click.prevent="$emit('hapuskelas', item.id)">Hapus</a>
+                <router-link :to="'/kelas/' + item.id">Detail Kelas</router-link>
                 </p>
               </li>
           </ul>
@@ -159,6 +161,14 @@
             </p>
             </div>`,
       }
+      const detailKelas = {
+        template: `<div>
+            <h2>Detail Kelas</h2>
+            <p>
+            Ini adalah detail kelas
+            </p>
+            </div>`,
+      }
       // konfigurasi komponen header dan footer~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       Vue.component('header-component', {
         props: ['nama', 'gambar'],
@@ -185,6 +195,7 @@
         { path: '/', component: Home },
         { path: '/about', component: About },
         { path: '/kelas', component: Kelas },
+        { path: '/kelas/:id', component: detailKelas },
         { path: '*', component: NotFound },
       ]
 
@@ -197,26 +208,6 @@
         el: '#app',
         router, //menambah konfigurasi ke vue
         data: {
-          // kelas: [
-          //   {
-          //     id: 1,
-          //     judul: 'PHP',
-          //     deskripsi: 'familiar backend language',
-          //     gambar: 'php.jpg',
-          //   },
-          //   {
-          //     id: 2,
-          //     judul: 'Golang',
-          //     deskripsi: 'language from google',
-          //     gambar: 'go.jpg',
-          //   },
-          //   {
-          //     id: 3,
-          //     judul: 'Java',
-          //     deskripsi: 'language from google',
-          //     gambar: 'java.png',
-          //   },
-          // ],
           kelas: [],
         },
         created() {
@@ -225,10 +216,20 @@
         methods: {
           hapuskls: function (id) {
             this.kelas = this.kelas.filter((item) => item.id != id)
+            localStorage.setItem('kelas', JSON.stringify(this.kelas)) //hapus local storage
+            swal({
+              text: 'Data berhasil dihapus',
+              icon: 'warning',
+            })
           },
           submitkelas: function (data) {
             this.kelas.push(data)
             localStorage.setItem('kelas', JSON.stringify(this.kelas))
+            swal({
+              title: data.judul,
+              text: 'Data ' + data.judul + ' berhasil disimpan',
+              icon: 'success',
+            })
           },
         },
       })
