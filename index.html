@@ -197,27 +197,30 @@
         el: '#app',
         router, //menambah konfigurasi ke vue
         data: {
-          kelas: [
-            {
-              id: 1,
-              judul: 'PHP',
-              deskripsi: 'familiar backend language',
-              gambar: 'php.jpg',
-            },
-            {
-              id: 2,
-              judul: 'Golang',
-              deskripsi: 'language from google',
-              gambar: 'go.jpg',
-            },
-            {
-              id: 3,
-              judul: 'Java',
-              deskripsi: 'language from google',
-              gambar: 'java.png',
-            },
-          ],
-          kelasbaru: '',
+          // kelas: [
+          //   {
+          //     id: 1,
+          //     judul: 'PHP',
+          //     deskripsi: 'familiar backend language',
+          //     gambar: 'php.jpg',
+          //   },
+          //   {
+          //     id: 2,
+          //     judul: 'Golang',
+          //     deskripsi: 'language from google',
+          //     gambar: 'go.jpg',
+          //   },
+          //   {
+          //     id: 3,
+          //     judul: 'Java',
+          //     deskripsi: 'language from google',
+          //     gambar: 'java.png',
+          //   },
+          // ],
+          kelas: [],
+        },
+        created() {
+          this.kelas = JSON.parse(localStorage.getItem('kelas')) || []
         },
         methods: {
           hapuskls: function (id) {
