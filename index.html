@@ -191,11 +191,14 @@
       }
       const detailKelas = {
         template: `<div>
+          <template v-if="detailkelas">
             <h2>Detail Kelas</h2>
             <img :src="url_gambar(detailkelas.gambar)" width="200">
             <h1>{{ detailkelas.judul }} - {{ $route.params.id }}</h1>
             <p>{{ detailkelas.deskripsi }}</p>
             <router-link to="/kelas">Kembali</router-link>
+          </template>
+          <p v-else>Kelas tidak ada</p>
             </div>`,
         data() {
           return {
@@ -207,10 +210,11 @@
         },
         methods: {
           filterKelas() {
-            let kelas = JSON.parse(localStorage.getItem('kelas'))
             let id = this.$route.params.id
-            let item = kelas.filter((k) => k.id == id)
-            this.detailkelas = item[0]
+            let kelasDetailRef = database.ref('kelas/' + id)
+            kelasDetailRef.on('value', (item) => {
+              this.detailkelas = item.val()
+            })
           },
           url_gambar: function (gambar) {
             return '../image/' + gambar
@@ -219,10 +223,9 @@
       }
       // konfigurasi komponen header dan footer~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       Vue.component('header-component', {
-        props: ['nama', 'gambar'],
+        props: ['nama'],
         template: ` <header>
-              <img src="image/vuejs-logo.svg" width="80px" />
-              <img :src='gambar' width='100px'>
+              <img src='../image/vuejslogo.svg' width='100px'>
               <p>{{ 'Framework ' +nama }}</p>
             </header>`,
         data: function () {
