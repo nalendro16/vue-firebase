@@ -94,7 +94,7 @@
         <template v-if="items.length >= 1">
           <ul>
             <li v-for="(item,index) in items">
-                <img :src="'image/' + item.gambar" width="200">
+                <img :src="url_gambar(item.gambar)" width="200" />
                 <p>
                 {{ index+1 }} - {{ item.judul }}
                 <a href="" v-on:click.prevent="$emit('hapuskelas', item.id)">Hapus</a>
@@ -151,6 +151,9 @@
             this.kelas.gambar = namaGambar
             this.previewimg = URL.createObjectURL(event.target.files[0])
           },
+          url_gambar: function (gambar) {
+            return 'image/' + gambar
+          },
         },
       }
       const NotFound = {
@@ -164,10 +167,30 @@
       const detailKelas = {
         template: `<div>
             <h2>Detail Kelas</h2>
-            <p>
-            Ini adalah detail kelas
-            </p>
+            <img :src="url_gambar(detailkelas.gambar)" width="200">
+            <h1>{{ detailkelas.judul }} - {{ $route.params.id }}</h1>
+            <p>{{ detailkelas.deskripsi }}</p>
+            <router-link to="/kelas">Kembali</router-link>
             </div>`,
+        data() {
+          return {
+            detailkelas: {},
+          }
+        },
+        created() {
+          this.filterKelas()
+        },
+        methods: {
+          filterKelas() {
+            let kelas = JSON.parse(localStorage.getItem('kelas'))
+            let id = this.$route.params.id
+            let item = kelas.filter((k) => k.id == id)
+            this.detailkelas = item[0]
+          },
+          url_gambar: function (gambar) {
+            return '../image/' + gambar
+          },
+        },
       }
       // konfigurasi komponen header dan footer~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       Vue.component('header-component', {
