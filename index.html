@@ -16,6 +16,12 @@
         border-radius: 10px;
         padding: 5px;
       }
+      .error {
+        color: rgb(212, 50, 50);
+      }
+      .input-group {
+        margin: 5px;
+      }
     </style>
   </head>
   <body>
@@ -67,7 +73,9 @@
         template: `<div>
         <h3>TAMBAH KELAS</h3>
         <form v-on:submit.prevent="submitkelas">
-            <p><input type="text" v-model="kelas.judul" placeholder="Nama kelas"></p>
+            <div class="input-group"><input type="text" v-model="kelas.judul" placeholder="Nama kelas">
+              <div class="error" v-if="error.judul"><small>{{error.judul}}</small></div>
+            <div>
             <div class="input-group">
                 <label>Deskripsi: </label><br>
                 <textarea v-model="kelas.deskripsi"></textarea>
@@ -103,10 +111,17 @@
               gambar: '',
             },
             previewimg: '',
+            error: {
+              judul: '',
+              deskripsi: '',
+            },
           }
         },
         methods: {
           submitkelas: function () {
+            if (this.kelas.judul == '') {
+              this.error.judul = 'Judul is Required'
+            }
             const data = {
               id: uuidv4(),
               judul: this.kelas.judul,
