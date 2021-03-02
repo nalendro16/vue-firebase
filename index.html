@@ -53,6 +53,7 @@
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
 
     <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
@@ -69,6 +70,9 @@
       }
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig)
+      const database = firebase.database()
+
+      const kelasRef = database.ref('kelas')
     </script>
 
     <script>
@@ -255,9 +259,15 @@
           kelas: [],
         },
         created() {
-          this.kelas = JSON.parse(localStorage.getItem('kelas')) || []
+          kelasRef.on('value', this.resultData, this.errorData)
         },
         methods: {
+          resultData(items) {
+            console.log(items.val())
+          },
+          errorData(error) {
+            console.log(error)
+          },
           hapuskls: function (id) {
             this.kelas = this.kelas.filter((item) => item.id != id)
             localStorage.setItem('kelas', JSON.stringify(this.kelas)) //hapus local storage
