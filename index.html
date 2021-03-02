@@ -50,6 +50,27 @@
     <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
     <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: 'AIzaSyAeuXyqb2a__wOtVDEu-A9aG8YeWeEoMXM',
+        authDomain: 'vue-firebase-ac88f.firebaseapp.com',
+        projectId: 'vue-firebase-ac88f',
+        storageBucket: 'vue-firebase-ac88f.appspot.com',
+        messagingSenderId: '864313169606',
+        appId: '1:864313169606:web:7aee470d3e09e5ed8ba9c7',
+      }
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig)
+    </script>
+
     <script>
       // konfigurasi komponen router
       const Home = {
