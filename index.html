@@ -263,24 +263,36 @@
         },
         methods: {
           resultData(items) {
+            this.kelas = []
             items.forEach((item) => {
-              this.kelas.push(item.val())
+              let data = {
+                id: item.key,
+                judul: item.val().judul,
+                deskripsi: item.val().deskripsi,
+                gambar: item.val().gambar,
+              }
+              this.kelas.push(data)
             })
           },
           errorData(error) {
             console.log(error)
           },
           hapuskls: function (id) {
-            this.kelas = this.kelas.filter((item) => item.id != id)
-            localStorage.setItem('kelas', JSON.stringify(this.kelas)) //hapus local storage
+            console.log(id)
+            database
+              .ref('/kelas/' + id) //memilih id berdasarkan database
+              .remove()
             swal({
               text: 'Data berhasil dihapus',
               icon: 'warning',
             })
           },
           submitkelas: function (data) {
-            this.kelas.push(data)
-            localStorage.setItem('kelas', JSON.stringify(this.kelas))
+            kelasRef.push({
+              judul: data.judul,
+              deskripsi: data.deskripsi,
+              gambar: data.gambar,
+            })
             swal({
               title: data.judul,
               text: 'Data ' + data.judul + ' berhasil disimpan',
