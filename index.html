@@ -263,7 +263,9 @@
         },
         methods: {
           resultData(items) {
-            console.log(items.val())
+            items.forEach((item) => {
+              this.kelas.push(item.val())
+            })
           },
           errorData(error) {
             console.log(error)
